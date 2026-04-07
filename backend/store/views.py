@@ -6,7 +6,7 @@ import random
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework import permissions, viewsets
-from backend.store.serializers import GroupSerializer, UserSerializer
+from webshop_project2025.backend.store.serializers import GroupSerializer, UserSerializer
 
 class UserViewSet (viewsets.ModelViewSet):
     """
