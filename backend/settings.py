@@ -43,6 +43,12 @@ MIDDLEWARE = [
 # Root URL configuration
 ROOT_URLCONF = 'urls'
 
+# Allowing you to control how many object per page are returned.
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PADGE_SIZE": 10,
+}
+
 # Templates
 TEMPLATES = [
     {
