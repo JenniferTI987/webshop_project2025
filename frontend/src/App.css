@@ -14,14 +14,29 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #111129;
   padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #2b425d;
+  gap: 20px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.header-logo {
+  height: 60px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
 }
 
 .auth-buttons {
@@ -31,7 +46,7 @@
 
 .auth-buttons button {
   padding: 10px 20px;
-  background-color: #61dafb;
+  background-color: #8897bd;
   color: #282c34;
   border: none;
   border-radius: 5px;
@@ -40,7 +55,7 @@
 }
 
 .auth-buttons button:hover {
-  background-color: #21b4d6;
+  background-color: #1a8299;
 }
 
 .App-link {

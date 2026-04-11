@@ -10,12 +10,16 @@ function App() {
   // Load products from backend
   const loadProducts = () => {
     setLoading(true);
-    fetch("http://127.0.0.1:8000/items/")
+    fetch("http://127.0.0.1:8000/api/items/")
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch products");
         return res.json();
       })
-      .then(data => setProducts(data))
+      .then(data => {
+        // Handle pagination - DRF returns {results: [...]} when paginated
+        const items = Array.isArray(data) ? data : (data.results || data);
+        setProducts(items);
+      })
       .catch(err => alert("Error loading products: " + err))
       .finally(() => setLoading(false));
   };
@@ -78,7 +82,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Midnight Cart</h1>
+        <div className="header-content">
+          <img src="/mylogo.png" alt="LOGO" className="header-logo" />
+          <h1>Midnight Cart</h1>
+        </div>
         <div className="auth-buttons">
           <button onClick={() => alert('Login coming soon!')}>Login</button>
           <button onClick={() => alert('Logout coming soon!')}>Logout</button>
@@ -104,9 +111,16 @@ function App() {
               <p>No products available. Click "Populate Database" to add some!</p>
             ) : (
               products.map(product => (
-                <li key={product.id}>
+                <li key={product.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc' }}>
+                  {product.image_url && (
+                    <img 
+                      src={product.image_url} 
+                      alt={product.title} 
+                      style={{ maxWidth: '200px', maxHeight: '200px', marginBottom: '10px' }}
+                    />
+                  )}
                   <strong>{product.title}</strong> - ${product.price} <br/>
-                  Seller: {product.seller} <br/>
+                  Seller: {product.seller_username || product.seller} <br/>
                   Description: {product.description} <br/>
                   <button onClick={() => addToCart(product.id)}>Add to Cart</button>
                 </li>

@@ -6,7 +6,7 @@ import random
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework import permissions, viewsets
-from webshop_project2025.backend.store.serializers import GroupSerializer, UserSerializer
+from .serializers import GroupSerializer, UserSerializer, ItemSerializer, CartItemSerializer
 
 class UserViewSet (viewsets.ModelViewSet):
     """
@@ -14,7 +14,7 @@ class UserViewSet (viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
-    permission_classes = [permission.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     
 
 class GroupViewSet (viewsets.ModelViewSet):
@@ -24,7 +24,25 @@ class GroupViewSet (viewsets.ModelViewSet):
 
     queryset = Group.objects.all().order_by("name")
     serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
+
+
+class ItemViewSet (viewsets.ModelViewSet):
+    """
+    API endpoint that allows items to be viewed or edited.
+    """
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class CartItemViewSet (viewsets.ModelViewSet):
+    """
+    API endpoint that allows cart items to be viewed or edited.
+    """
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
+    permission_classes = [permissions.AllowAny]
 
 
 def home(request):

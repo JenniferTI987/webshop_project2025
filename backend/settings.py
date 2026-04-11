@@ -47,6 +47,9 @@ ROOT_URLCONF = 'urls'
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PADGE_SIZE": 10,
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
 }
 
 # Templates
@@ -83,9 +86,16 @@ AUTH_PASSWORD_VALIDATORS = []
 # Static files
 STATIC_URL = '/static/'
 
+# Media files (for uploaded images)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # CORS configuration for local frontend
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
 ]
 
 # Default primary key field type
