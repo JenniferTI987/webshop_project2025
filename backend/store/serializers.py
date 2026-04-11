@@ -22,7 +22,7 @@ class ItemSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Item
-        fields = ['id', 'title', 'description', 'price', 'image', 'image_url', 'seller', 'seller_username', 'date_added', 'status']
+        fields = ['id', 'title', 'description', 'price', 'image', 'image_url', 'seller', 'seller_username', 'date_added', 'status', 'sold_count']
     
     def get_image_url(self, obj):
         request = self.context.get('request')

@@ -19,6 +19,7 @@ class Item(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="onsale")
     date_added = models.DateTimeField(auto_now_add=True)
+    sold_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title

@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/HomePage.css';
 
 function HomePage() {
   const [userId] = useState(1);
   const [actionLoading, setActionLoading] = useState(false);
+  const [mostSoldItems, setMostSoldItems] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/items/most_sold/")
+      .then(res => res.json())
+      .then(data => setMostSoldItems(data))
+      .catch(err => console.error("Failed to fetch most sold items:", err));
+  }, []);
 
   const populateDB = () => {
     setActionLoading(true);
-    fetch("http://127.0.0.1:8000/populate/")
+    fetch("http://localhost:8000/populate/")
       .then(res => {
         if (!res.ok) throw new Error("Failed to populate DB");
         return res.json();
@@ -22,7 +30,7 @@ function HomePage() {
 
   const payCart = () => {
     setActionLoading(true);
-    fetch("http://127.0.0.1:8000/pay/", {
+    fetch("http://localhost:8000/pay/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user_id: userId })
@@ -56,6 +64,33 @@ function HomePage() {
           Browse All Items
         </Link>
       </div>
+
+      {mostSoldItems.length > 0 && (
+        <div className="most-sold-section">
+          <h2>Most Sold Items</h2>
+          <div className="most-sold-container">
+            <button className="scroll-btn left" onClick={() => document.querySelector('.most-sold-row').scrollBy({ left: -200, behavior: 'smooth' })}>
+              ‹
+            </button>
+            <div className="most-sold-row">
+              {mostSoldItems.map(item => (
+                <Link key={item.id} to={`/items/${item.id}`} className="product-link">
+                  <div className="product-card">
+                    <img src={item.image_url} alt={item.title} className="product-image" />
+                    <h3>{item.title}</h3>
+                    <p className="price">€{item.price}</p>
+                    <p className="seller">Sold by: {item.seller_username}</p>
+                    <p className="sold-count">Sold: {item.sold_count}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <button className="scroll-btn right" onClick={() => document.querySelector('.most-sold-row').scrollBy({ left: 200, behavior: 'smooth' })}>
+              ›
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="features-section">
         <h2>Features</h2>

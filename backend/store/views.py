@@ -1,4 +1,4 @@
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import action, api_view, renderer_classes
 from rest_framework.response import Response
 from django.contrib.auth.models import Group, User
 from .models import Item, CartItem
@@ -34,6 +34,12 @@ class ItemViewSet (viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.AllowAny]
+
+    @action(detail=False, methods=['get'])
+    def most_sold(self, request):
+        most_sold_items = Item.objects.filter(status='onsale').order_by('-sold_count')[:10]
+        serializer = self.get_serializer(most_sold_items, many=True)
+        return Response(serializer.data)
 
 
 class CartItemViewSet (viewsets.ModelViewSet):

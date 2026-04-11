@@ -12,7 +12,7 @@ function ItemsPage() {
   // Load products from backend
   const loadProducts = () => {
     setLoading(true);
-    fetch("http://127.0.0.1:8000/api/items/")
+    fetch("http://localhost:8000/api/items/")
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch products");
         return res.json();
@@ -50,7 +50,7 @@ function ItemsPage() {
   };
 
   const addToCart = (itemId) => {
-    fetch("http://127.0.0.1:8000/add-to-cart/", {
+    fetch("http://localhost:8000/add-to-cart/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user_id: userId, item_id: itemId })
@@ -82,7 +82,7 @@ function ItemsPage() {
           />
         </div>
         <button onClick={listAllItems} className="list-all-btn">
-          List All Items
+          Search
         </button>
         {searchTerm && (
           <p className="search-results">
@@ -102,15 +102,17 @@ function ItemsPage() {
           ) : (
             filteredProducts.map(product => (
               <div key={product.id} className="product-card">
-                {product.image_url && (
-                  <img 
-                    src={product.image_url} 
-                    alt={product.title} 
-                    className="product-image"
-                  />
-                )}
-                <h3 className="product-title">{product.title}</h3>
-                <p className="product-price">${product.price}</p>
+                <Link to={`/items/${product.id}`} className="product-link">
+                  {product.image_url && (
+                    <img 
+                      src={product.image_url} 
+                      alt={product.title} 
+                      className="product-image"
+                    />
+                  )}
+                  <h3 className="product-title">{product.title}</h3>
+                </Link>
+                <p className="product-price">€{product.price}</p>
                 <p className="product-seller">Seller: {product.seller_username || product.seller}</p>
                 <p className="product-description">{product.description}</p>
                 <button className="add-to-cart-btn" onClick={() => addToCart(product.id)}>Add to Cart</button>
