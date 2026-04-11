@@ -84,7 +84,6 @@ function App() {
       <header className="App-header">
         <div className="header-content">
           <img src="/mylogo.png" alt="LOGO" className="header-logo" />
-          <h1>Midnight Cart</h1>
         </div>
         <div className="auth-buttons">
           <button onClick={() => alert('Login coming soon!')}>Login</button>
@@ -106,27 +105,28 @@ function App() {
         {loading ? (
           <p>Loading products...</p>
         ) : (
-          <ul>
+          <div className="products-grid">
             {products.length === 0 ? (
               <p>No products available. Click "Populate Database" to add some!</p>
             ) : (
               products.map(product => (
-                <li key={product.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc' }}>
+                <div key={product.id} className="product-card">
                   {product.image_url && (
                     <img 
                       src={product.image_url} 
                       alt={product.title} 
-                      style={{ maxWidth: '200px', maxHeight: '200px', marginBottom: '10px' }}
+                      className="product-image"
                     />
                   )}
-                  <strong>{product.title}</strong> - ${product.price} <br/>
-                  Seller: {product.seller_username || product.seller} <br/>
-                  Description: {product.description} <br/>
-                  <button onClick={() => addToCart(product.id)}>Add to Cart</button>
-                </li>
+                  <h3 className="product-title">{product.title}</h3>
+                  <p className="product-price">${product.price}</p>
+                  <p className="product-seller">Seller: {product.seller_username || product.seller}</p>
+                  <p className="product-description">{product.description}</p>
+                  <button className="add-to-cart-btn" onClick={() => addToCart(product.id)}>Add to Cart</button>
+                </div>
               ))
             )}
-          </ul>
+          </div>
         )}
       </main>
     </div>
