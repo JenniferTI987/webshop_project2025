@@ -16,14 +16,14 @@
 }
 
 .App-header {
-  background-color: #222130; /* Updated header background color to match logo */
+  background-color: #161925; /* Updated header background color to match logo */
   padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-size: calc(10px + 2vmin);
-  color: #2b425d;
+  color: #ffffff;
   gap: 20px;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .header-logo {
-  height: 100px;
+  height: 200px;
   width: auto;
   max-width: 200px;
   object-fit: contain;
@@ -48,8 +48,8 @@
 
 .auth-buttons button {
   padding: 10px 20px;
-  background-color: #8897bd;
-  color: #282c34;
+  background-color: #1b3145;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;

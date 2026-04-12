@@ -10,7 +10,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <div className="header-content">
-            <img src="/mylogo.png" alt="LOGO" className="header-logo" />
+            <img src="/midnight_cartlogo.png" alt="LOGO" className="header-logo" />
           </div>
           <div className="auth-buttons">
            <button onClick={() => alert('Register coming soon!')}>Register</button>

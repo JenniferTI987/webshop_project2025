@@ -50,7 +50,7 @@ function HomePage() {
     <div className="home-page">
       <div className="welcome-section">
         <h1>Welcome to WebShop</h1>
-        <p>Browse our amazing collection of products</p>
+        <p>Dark mode, bright deals</p>
       </div>
 
       <div className="actions-section">
@@ -67,7 +67,7 @@ function HomePage() {
 
       {mostSoldItems.length > 0 && (
         <div className="most-sold-section">
-          <h2>Most Sold Items</h2>
+          <h2>Popular Items</h2>
           <div className="most-sold-container">
             <button className="scroll-btn left" onClick={() => document.querySelector('.most-sold-row').scrollBy({ left: -200, behavior: 'smooth' })}>
               ‹
